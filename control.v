@@ -25,9 +25,8 @@ begin
    else 
    begin  
       case(opcode)
-         
       6'b000000: 
-      begin // add, and, or, sub 
+      begin // add, and, or, sub, slt
             reg_dst = 1'b1;  
             mem_to_reg = 1'b0;  
             alu_op = 2'b10;  
@@ -66,7 +65,17 @@ begin
             alu_src = 1'b1;  
             reg_write = 1'b0;  
       end  
-      
+      6'b110000:
+      begin // sll, sra, srl
+            reg_dst = 1'b1;  
+            mem_to_reg = 1'b0;  
+            alu_op = 2'b10;    
+            mem_read = 1'b0;  
+            mem_write = 1'b0;  
+            alu_src = 1'b1;  
+            reg_write = 1'b1;  
+      end  
+
       endcase  
    end  
  end 

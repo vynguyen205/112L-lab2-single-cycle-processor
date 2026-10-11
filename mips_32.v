@@ -1,7 +1,5 @@
 `timescale 1ns / 1ps
 
-
-
 module mips_32(
     input clk, reset,  
     output[31:0] result

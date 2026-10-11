@@ -14,8 +14,6 @@ module datapath(
     output [5:0] inst_5_0
     );
     
-
-    
     reg [9:0] pc; 
     
     wire [9:0] pc_plus4;

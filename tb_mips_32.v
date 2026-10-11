@@ -1,7 +1,5 @@
 `timescale 1ns / 1ps
 
-
-
 module tb_mips_32;
 reg clk;  
       reg reset;  
@@ -14,10 +12,12 @@ reg clk;
            .reset(reset),     
            .result(result)  
       );  
+
       initial begin  
            clk = 0;  
            forever #10 clk = ~clk;  
       end  
+
       initial begin  
            // Initialize Inputs  
            reset = 1;  

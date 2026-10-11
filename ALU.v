@@ -1,6 +1,5 @@
 `timescale 1ns / 1ps
-
-
+// testing
 
 module ALU(
     input [31:0] a,  
@@ -16,6 +15,14 @@ module ALU(
       4'b0001: alu_result = a | b; // or  
       4'b0010: alu_result = a + b; // add  
       4'b0110: alu_result = a - b; // sub  
+      //Added Funcs Below
+      4'b0100: alu_result = a ^ b;    // xor
+      4'b1100: alu_result = ~(a | b); // nor
+      4'b0111: alu_result = (a < b) ? 32'd1 : 32'd0;   // slt
+      4'b1000: alu_result = a << b[10:6]; // sll
+      4'b1010: alu_result = $signed(a) >>> b[10:6]; // sra
+      4'b1001: alu_result = a >> b[10:6]; // srl
+
       default: alu_result = a + b; // add  
       endcase  
  end  
