@@ -26,6 +26,11 @@ module ALUControl(
         8'b10000011: ALU_Control=4'b1010; // sra
         8'b10000010: ALU_Control=4'b1001; // sll
 
+        8'b10011000: ALU_Control=4'b0101; // mul
+        8'b10011010: ALU_Control=4'b1011; // div
+ 
+        8'b01xxxxxx: ALU_Control=4'b0110; //beq
+
         default: ALU_Control=4'b0000;
     endcase
 endmodule
