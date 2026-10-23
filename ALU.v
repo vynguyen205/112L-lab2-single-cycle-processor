@@ -18,12 +18,12 @@ module ALU(
       //Functions Below
       4'b0100: alu_result = a ^ b;    // xor
       4'b1100: alu_result = ~(a | b); // nor
-      4'b0111: alu_result = ($signed(a) < $signed(b)) ? 32'd1 : 32'd0;   // slt
+      4'b0111: alu_result = (a < b) ? 32'd1 : 32'd0;   // slt
       4'b1000: alu_result = a << b[10:6]; // sll
       4'b1010: alu_result = $signed(a) >>> b[10:6]; // sra
       4'b1001: alu_result = a >> b[10:6]; // srl
       4'b0101: alu_result = $signed(a) * $signed(b); // mul
-      4'b1011: alu_result = $signed(a) / $signed(b); // div
+      4'b1011: alu_result = a / b; // div
       
       default: alu_result = a + b; // add  
       endcase  

@@ -217,8 +217,6 @@ module instruction_mem(
         rom[139] = 32'b00000000001000100111100000100000; // add r15,r1,r2            0fdf6e96             r15= 0fdf6e96         doesnt run
         rom[140] = 32'b10101100000001100000000100000100; // sw mem[r0+65] <= r6      104(add 65)               -                mem[65]= 90000000
         
-
-        
       end  
       
       assign data = rom[read_addr[9:2]];

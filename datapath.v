@@ -32,9 +32,9 @@ module datapath(
     wire [9:0] pc_branch;
 
     // ANDI
-    wire [31:0] andi_imm;
-    wire [31:0] selected_imm;
-
+    // wire [31:0] andi_imm;
+    // wire [31:0] selected_imm;
+    //
     // JUMP
     wire [9:0] jump_target;
     wire [9:0] pc_next;
@@ -74,8 +74,8 @@ module datapath(
     assign inst_31_26 = instr[31:26];
     assign inst_5_0 = instr[5:0];
     
-    assign andi_imm = {16'b0, instr[15:0]};
-    assign selected_imm = (inst_31_26 == 6'b001100) ? andi_imm : imm_value;
+    // assign andi_imm = {16'b0, instr[15:0]};
+    // assign selected_imm = (inst_31_26 == 6'b001100) ? andi_imm : imm_value;
 
     mux2 #(.mux_width(5)) reg_mux 
     (   .a(instr[20:16]),
@@ -101,7 +101,7 @@ module datapath(
     
     mux2 #(.mux_width(32)) alu_mux 
     (   .a(reg2),
-        .b(selected_imm),
+        .b(imm_value),
         .sel(alu_src),
         .y(alu_in2));
         
