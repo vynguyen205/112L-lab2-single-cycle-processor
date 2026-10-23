@@ -26,16 +26,46 @@ module datapath(
     wire zero;
     wire [31:0] alu_result;
     wire [31:0] mem_read_data;
-    
+
+    // Added for BEQ
+    wire [9:0] branch_target;
+    wire [9:0] pc_branch;
+
+    // ANDI
+    wire [31:0] andi_imm;
+    wire [31:0] selected_imm;
+
+    // JUMP
+    wire [9:0] jump_target;
+    wire [9:0] pc_next;
+
     always @(posedge clk or posedge reset)  
     begin   
         if(reset)   
            pc <= 10'b0000000000;  
         else  
-           pc <= pc_plus4;  
+           pc <= pc_next; // updated here for BEQ
     end  
  
     assign pc_plus4 = pc + 10'b0000000100;
+    assign branch_target = pc_plus4 + (imm_value << 2);
+    assign jump_target = {instr[7:0], 2'b00};
+
+    // branch mux
+    mux2 #(.mux_width(10)) branch_mux (
+      .a(pc_plus4),
+      .b(branch_target),
+      .sel(branch && zero),
+      .y(pc_branch)
+    );
+
+    // jump mux
+    mux2 #(.mux_width(10)) jump_mux (
+      .a(pc_branch),
+      .b(jump_target),
+      .sel(jump),
+      .y(pc_next)
+    );
         
     instruction_mem inst_mem (
         .read_addr(pc),
@@ -44,6 +74,9 @@ module datapath(
     assign inst_31_26 = instr[31:26];
     assign inst_5_0 = instr[5:0];
     
+    assign andi_imm = {16'b0, instr[15:0]};
+    assign selected_imm = (inst_31_26 == 6'b001100) ? andi_imm : imm_value;
+
     mux2 #(.mux_width(5)) reg_mux 
     (   .a(instr[20:16]),
         .b(instr[15:11]),
@@ -65,10 +98,10 @@ module datapath(
         .sign_ex_in(instr[15:0]),
         .sign_ex_out(imm_value));
          
-        
+    
     mux2 #(.mux_width(32)) alu_mux 
     (   .a(reg2),
-        .b(imm_value),
+        .b(selected_imm),
         .sel(alu_src),
         .y(alu_in2));
         

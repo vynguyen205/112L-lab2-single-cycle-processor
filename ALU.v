@@ -14,15 +14,7 @@ module ALU(
       4'b0000: alu_result = a & b; // and  
       4'b0001: alu_result = a | b; // or  
       4'b0010: alu_result = a + b; // add  
-      4'b0110:
-      begin
-        alu_result = a - b; // sub, beq  
-        if (alu_result == 0) begin
-          zero = 1;
-        end else begin
-          zero = 0;
-        end
-      end 
+      4'b0110: alu_result = a - b; // sub, beq  
       //Functions Below
       4'b0100: alu_result = a ^ b;    // xor
       4'b1100: alu_result = ~(a | b); // nor

@@ -12,7 +12,7 @@ module ALUControl(
 
     always @(ALUControlIn)
     casex (ALUControlIn)
-        8'b1x100100: ALU_Control=4'b0000; // and, andi
+        8'b1x100100: ALU_Control=4'b0000; // and
         8'b10100101: ALU_Control=4'b0001; // or
         8'b00xxxxxx: ALU_Control=4'b0010; // addi, lw, sw
         8'b10100000: ALU_Control=4'b0010; // add
@@ -30,6 +30,7 @@ module ALUControl(
         8'b10011010: ALU_Control=4'b1011; // div
  
         8'b01xxxxxx: ALU_Control=4'b0110; //beq
+        8'b11xxxxxx: ALU_Control=4'b0000; //andi
 
         default: ALU_Control=4'b0000;
     endcase
