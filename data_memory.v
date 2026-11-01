@@ -16,7 +16,7 @@ module data_memory(
     initial 
     begin  
        for(i=0;i<256;i=i+1)  
-           ram[i] <= 32'd0;  
+           ram[i] <= i;  
     end  
         
     always @(posedge clk) 
